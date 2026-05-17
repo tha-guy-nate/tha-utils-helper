@@ -1,6 +1,8 @@
-"""tha-utils-helper: general-purpose utility functions for the tha-* ecosystem."""
+"""tha-utils-helper: general-purpose utility classes for the tha-* ecosystem."""
 
-from .utils import chunk_list
+from .dict_utils import DictUtils
+from .list_utils import ListUtils
+from .type_utils import TypeUtils
 
-__version__ = "0.1.0"
-__all__ = ["chunk_list"]
+__version__ = "0.1.1"
+__all__ = ["DictUtils", "ListUtils", "TypeUtils"]

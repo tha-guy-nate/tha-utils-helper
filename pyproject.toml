@@ -1,6 +1,6 @@
 [project]
 name = "tha-utils-helper"
-version = "0.1.0"
+version = "0.1.1"
 description = "A Tabular Helper utility library with general-purpose helpers for the tha-* ecosystem."
 readme = "README.md"
 requires-python = ">=3.10"
