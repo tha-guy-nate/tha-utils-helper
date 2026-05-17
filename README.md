@@ -93,6 +93,14 @@ TypeUtils.safe_float("3.14")  # 3.14
 TypeUtils.safe_float(None)    # None
 ```
 
+## Alternatives
+
+This library is intentionally limited in scope — it exists as a zero-dependency utility layer with consistent naming for the `tha-*` ecosystem. If you need something more comprehensive, these are the go-to options:
+
+- [**toolz**](https://toolz.readthedocs.io) — covers most of what's here and much more: chunking, flattening, pick, omit, nested get, and functional composition
+- [**more-itertools**](https://more-itertools.readthedocs.io) — extensive iterable utilities including chunking and flattening
+- [**funcy**](https://funcy.readthedocs.io) — functional helpers including `pick`, `omit`, `chunks`, and silent type coercions
+
 ## License
 
 MIT
