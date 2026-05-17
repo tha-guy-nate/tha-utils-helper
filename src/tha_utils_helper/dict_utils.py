@@ -4,7 +4,7 @@ from collections.abc import Collection
 from typing import Any
 
 
-class DictUtils:
+class ThaDict:
     @staticmethod
     def pick(d: dict[str, Any], keys: Collection[str]) -> dict[str, Any]:
         return {k: v for k, v in d.items() if k in keys}
@@ -28,14 +28,14 @@ class DictUtils:
 
     @staticmethod
     def pick_rows(rows: list[dict[str, Any]], keys: Collection[str]) -> list[dict[str, Any]]:
-        return [DictUtils.pick(row, keys) for row in rows]
+        return [ThaDict.pick(row, keys) for row in rows]
 
     @staticmethod
     def omit_rows(rows: list[dict[str, Any]], keys: Collection[str]) -> list[dict[str, Any]]:
-        return [DictUtils.omit(row, keys) for row in rows]
+        return [ThaDict.omit(row, keys) for row in rows]
 
     @staticmethod
     def rename_keys_rows(
         rows: list[dict[str, Any]], mapping: dict[str, str]
     ) -> list[dict[str, Any]]:
-        return [DictUtils.rename_keys(row, mapping) for row in rows]
+        return [ThaDict.rename_keys(row, mapping) for row in rows]

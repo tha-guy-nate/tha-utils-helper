@@ -5,7 +5,7 @@ from typing import TypeVar
 T = TypeVar("T")
 
 
-class ListUtils:
+class ThaList:
     @staticmethod
     def chunk(lst: list[T], size: int) -> list[list[T]]:
         if size < 1:

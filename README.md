@@ -13,11 +13,11 @@ pip install tha-utils-helper
 ## Quick start
 
 ```python
-from tha_utils_helper import DictUtils, ListUtils, TypeUtils, ThaStr, ThaNum, ThaDT
+from tha_utils_helper import ThaDict, ThaList, ThaType, ThaStr, ThaNum, ThaDT
 
 # Structural helpers — work on single values or lists of row dicts
-DictUtils.pick({"a": 1, "b": 2, "c": 3}, ["a", "c"])         # {"a": 1, "c": 3}
-DictUtils.rename_keys_rows(rows, {"studentUniqueId": "id"})   # rename across all rows
+ThaDict.pick({"a": 1, "b": 2, "c": 3}, ["a", "c"])         # {"a": 1, "c": 3}
+ThaDict.rename_keys_rows(rows, {"studentUniqueId": "id"})   # rename across all rows
 
 # String normalization
 ThaStr.format_str("  HELLO WORLD  ", case="lower")            # "hello world"
@@ -39,64 +39,64 @@ rows = formatter.format_num_rows(rows, column="Budget", cast="float", round_to=2
 
 ## API
 
-### `DictUtils`
+### `ThaDict`
 
 Static methods for single dicts and lists of row dicts.
 
 ```python
-DictUtils.pick(d, keys)               # new dict with only the specified keys
-DictUtils.omit(d, keys)               # new dict with the specified keys removed
-DictUtils.safe_get(d, *keys)          # traverse nested dicts safely — returns None on miss
-DictUtils.rename_keys(d, mapping)     # rename keys; unmapped keys are preserved
+ThaDict.pick(d, keys)               # new dict with only the specified keys
+ThaDict.omit(d, keys)               # new dict with the specified keys removed
+ThaDict.safe_get(d, *keys)          # traverse nested dicts safely — returns None on miss
+ThaDict.rename_keys(d, mapping)     # rename keys; unmapped keys are preserved
 
-DictUtils.pick_rows(rows, keys)       # pick() applied to every row
-DictUtils.omit_rows(rows, keys)       # omit() applied to every row
-DictUtils.rename_keys_rows(rows, mapping)  # rename_keys() applied to every row
+ThaDict.pick_rows(rows, keys)       # pick() applied to every row
+ThaDict.omit_rows(rows, keys)       # omit() applied to every row
+ThaDict.rename_keys_rows(rows, mapping)  # rename_keys() applied to every row
 ```
 
 ```python
-DictUtils.pick({"a": 1, "b": 2, "c": 3}, ["a", "c"])
+ThaDict.pick({"a": 1, "b": 2, "c": 3}, ["a", "c"])
 # {"a": 1, "c": 3}
 
-DictUtils.safe_get({"student": {"id": 42}}, "student", "id")
+ThaDict.safe_get({"student": {"id": 42}}, "student", "id")
 # 42
 
-DictUtils.rename_keys_rows(rows, {"studentUniqueId": "student_id"})
+ThaDict.rename_keys_rows(rows, {"studentUniqueId": "student_id"})
 # [{"student_id": ..., ...}, ...]
 ```
 
 ---
 
-### `ListUtils`
+### `ThaList`
 
 Static methods for lists.
 
 ```python
-ListUtils.chunk(lst, size)   # split into consecutive chunks of size
-ListUtils.flatten(lst)       # flatten one level of nesting
+ThaList.chunk(lst, size)   # split into consecutive chunks of size
+ThaList.flatten(lst)       # flatten one level of nesting
 ```
 
 ```python
-ListUtils.chunk([1, 2, 3, 4, 5], 2)    # [[1, 2], [3, 4], [5]]
-ListUtils.flatten([[1, 2], [3, 4]])     # [1, 2, 3, 4]
+ThaList.chunk([1, 2, 3, 4, 5], 2)    # [[1, 2], [3, 4], [5]]
+ThaList.flatten([[1, 2], [3, 4]])     # [1, 2, 3, 4]
 ```
 
-`chunk` also works on lists of row dicts directly: `ListUtils.chunk(rows, 100)`.
+`chunk` also works on lists of row dicts directly: `ThaList.chunk(rows, 100)`.
 
 ---
 
-### `TypeUtils`
+### `ThaType`
 
 Static methods for coercing values. Row methods return `None` on failure (consistent with `safe_int` / `safe_float`).
 
 ```python
-TypeUtils.normalize_bool(val)                                   # bool or raises ValueError
-TypeUtils.safe_int(val)                                         # int | None
-TypeUtils.safe_float(val)                                       # float | None
+ThaType.normalize_bool(val)                                   # bool or raises ValueError
+ThaType.safe_int(val)                                         # int | None
+ThaType.safe_float(val)                                       # float | None
 
-TypeUtils.normalize_bool_rows(rows, column, *, out_column=None) # None on failure
-TypeUtils.safe_int_rows(rows, column, *, out_column=None)
-TypeUtils.safe_float_rows(rows, column, *, out_column=None)
+ThaType.normalize_bool_rows(rows, column, *, out_column=None) # None on failure
+ThaType.safe_int_rows(rows, column, *, out_column=None)
+ThaType.safe_float_rows(rows, column, *, out_column=None)
 ```
 
 `normalize_bool` recognizes:
@@ -108,11 +108,11 @@ TypeUtils.safe_float_rows(rows, column, *, out_column=None)
 String matching is case-insensitive and strips whitespace.
 
 ```python
-TypeUtils.normalize_bool("Yes")     # True
-TypeUtils.safe_int("3.14")          # None  (not an integer string)
-TypeUtils.safe_float("abc")         # None
+ThaType.normalize_bool("Yes")     # True
+ThaType.safe_int("3.14")          # None  (not an integer string)
+ThaType.safe_float("abc")         # None
 
-TypeUtils.safe_int_rows(rows, "count", out_column="count_int")
+ThaType.safe_int_rows(rows, "count", out_column="count_int")
 # adds "count_int" column; original "count" column preserved
 ```
 
