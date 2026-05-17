@@ -88,3 +88,58 @@ def test_rename_keys_empty_mapping() -> None:
 
 def test_rename_keys_empty_dict() -> None:
     assert DictUtils.rename_keys({}, {"a": "b"}) == {}
+
+
+# --- pick_rows ---
+
+def test_pick_rows_basic() -> None:
+    rows = [{"a": 1, "b": 2, "c": 3}, {"a": 4, "b": 5, "c": 6}]
+    assert DictUtils.pick_rows(rows, ["a", "c"]) == [{"a": 1, "c": 3}, {"a": 4, "c": 6}]
+
+def test_pick_rows_returns_new_list() -> None:
+    rows = [{"a": 1}]
+    assert DictUtils.pick_rows(rows, ["a"]) is not rows
+
+def test_pick_rows_immutable() -> None:
+    rows = [{"a": 1, "b": 2}]
+    DictUtils.pick_rows(rows, ["a"])
+    assert "b" in rows[0]
+
+def test_pick_rows_empty() -> None:
+    assert DictUtils.pick_rows([], ["a"]) == []
+
+
+# --- omit_rows ---
+
+def test_omit_rows_basic() -> None:
+    rows = [{"a": 1, "b": 2, "c": 3}]
+    assert DictUtils.omit_rows(rows, ["b"]) == [{"a": 1, "c": 3}]
+
+def test_omit_rows_returns_new_list() -> None:
+    rows = [{"a": 1}]
+    assert DictUtils.omit_rows(rows, []) is not rows
+
+def test_omit_rows_empty() -> None:
+    assert DictUtils.omit_rows([], ["a"]) == []
+
+
+# --- rename_keys_rows ---
+
+def test_rename_keys_rows_basic() -> None:
+    rows = [{"studentId": "1", "name": "A"}, {"studentId": "2", "name": "B"}]
+    assert DictUtils.rename_keys_rows(rows, {"studentId": "id"}) == [
+        {"id": "1", "name": "A"},
+        {"id": "2", "name": "B"},
+    ]
+
+def test_rename_keys_rows_returns_new_list() -> None:
+    rows = [{"a": 1}]
+    assert DictUtils.rename_keys_rows(rows, {}) is not rows
+
+def test_rename_keys_rows_immutable() -> None:
+    rows = [{"studentId": "1"}]
+    DictUtils.rename_keys_rows(rows, {"studentId": "id"})
+    assert "studentId" in rows[0]
+
+def test_rename_keys_rows_empty() -> None:
+    assert DictUtils.rename_keys_rows([], {"a": "b"}) == []

@@ -25,3 +25,17 @@ class DictUtils:
     @staticmethod
     def rename_keys(d: dict[str, Any], mapping: dict[str, str]) -> dict[str, Any]:
         return {mapping.get(k, k): v for k, v in d.items()}
+
+    @staticmethod
+    def pick_rows(rows: list[dict[str, Any]], keys: Collection[str]) -> list[dict[str, Any]]:
+        return [DictUtils.pick(row, keys) for row in rows]
+
+    @staticmethod
+    def omit_rows(rows: list[dict[str, Any]], keys: Collection[str]) -> list[dict[str, Any]]:
+        return [DictUtils.omit(row, keys) for row in rows]
+
+    @staticmethod
+    def rename_keys_rows(
+        rows: list[dict[str, Any]], mapping: dict[str, str]
+    ) -> list[dict[str, Any]]:
+        return [DictUtils.rename_keys(row, mapping) for row in rows]

@@ -95,3 +95,84 @@ def test_safe_float_none() -> None:
 
 def test_safe_float_empty_string() -> None:
     assert TypeUtils.safe_float("") is None
+
+
+# --- normalize_bool_rows ---
+
+def test_normalize_bool_rows_basic() -> None:
+    rows = [{"active": "yes"}, {"active": "no"}]
+    result = TypeUtils.normalize_bool_rows(rows, "active")
+    assert result[0]["active"] is True
+    assert result[1]["active"] is False
+
+def test_normalize_bool_rows_out_column() -> None:
+    rows = [{"active": "yes"}]
+    result = TypeUtils.normalize_bool_rows(rows, "active", out_column="active_bool")
+    assert result[0]["active_bool"] is True
+    assert result[0]["active"] == "yes"
+
+def test_normalize_bool_rows_invalid_returns_none() -> None:
+    rows = [{"active": "maybe"}]
+    result = TypeUtils.normalize_bool_rows(rows, "active")
+    assert result[0]["active"] is None
+
+def test_normalize_bool_rows_immutable() -> None:
+    rows = [{"active": "yes"}]
+    TypeUtils.normalize_bool_rows(rows, "active")
+    assert rows[0]["active"] == "yes"
+
+def test_normalize_bool_rows_returns_new_list() -> None:
+    rows = [{"active": "yes"}]
+    assert TypeUtils.normalize_bool_rows(rows, "active") is not rows
+
+def test_normalize_bool_rows_empty() -> None:
+    assert TypeUtils.normalize_bool_rows([], "active") == []
+
+
+# --- safe_int_rows ---
+
+def test_safe_int_rows_basic() -> None:
+    rows = [{"count": "42"}, {"count": "abc"}]
+    result = TypeUtils.safe_int_rows(rows, "count")
+    assert result[0]["count"] == 42
+    assert result[1]["count"] is None
+
+def test_safe_int_rows_out_column() -> None:
+    rows = [{"count": "42"}]
+    result = TypeUtils.safe_int_rows(rows, "count", out_column="count_int")
+    assert result[0]["count_int"] == 42
+    assert result[0]["count"] == "42"
+
+def test_safe_int_rows_returns_new_list() -> None:
+    rows = [{"count": "1"}]
+    assert TypeUtils.safe_int_rows(rows, "count") is not rows
+
+def test_safe_int_rows_immutable() -> None:
+    rows = [{"count": "42"}]
+    TypeUtils.safe_int_rows(rows, "count")
+    assert rows[0]["count"] == "42"
+
+def test_safe_int_rows_empty() -> None:
+    assert TypeUtils.safe_int_rows([], "count") == []
+
+
+# --- safe_float_rows ---
+
+def test_safe_float_rows_basic() -> None:
+    rows = [{"amount": "3.14"}, {"amount": "bad"}]
+    result = TypeUtils.safe_float_rows(rows, "amount")
+    assert result[0]["amount"] == pytest.approx(3.14)
+    assert result[1]["amount"] is None
+
+def test_safe_float_rows_out_column() -> None:
+    rows = [{"amount": "3.14"}]
+    result = TypeUtils.safe_float_rows(rows, "amount", out_column="amount_float")
+    assert result[0]["amount_float"] == pytest.approx(3.14)
+    assert result[0]["amount"] == "3.14"
+
+def test_safe_float_rows_returns_new_list() -> None:
+    rows = [{"amount": "1.0"}]
+    assert TypeUtils.safe_float_rows(rows, "amount") is not rows
+
+def test_safe_float_rows_empty() -> None:
+    assert TypeUtils.safe_float_rows([], "amount") == []

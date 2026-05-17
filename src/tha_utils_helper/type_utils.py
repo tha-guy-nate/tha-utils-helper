@@ -37,3 +37,41 @@ class TypeUtils:
             return float(val)
         except (ValueError, TypeError):
             return None
+
+    @staticmethod
+    def normalize_bool_rows(
+        rows: list[dict[str, Any]],
+        column: str,
+        *,
+        out_column: str | None = None,
+    ) -> list[dict[str, Any]]:
+        target = out_column if out_column is not None else column
+        result = []
+        for row in rows:
+            row_copy = dict(row)
+            try:
+                row_copy[target] = TypeUtils.normalize_bool(row_copy[column])
+            except (ValueError, TypeError):
+                row_copy[target] = None
+            result.append(row_copy)
+        return result
+
+    @staticmethod
+    def safe_int_rows(
+        rows: list[dict[str, Any]],
+        column: str,
+        *,
+        out_column: str | None = None,
+    ) -> list[dict[str, Any]]:
+        target = out_column if out_column is not None else column
+        return [{**row, target: TypeUtils.safe_int(row[column])} for row in rows]
+
+    @staticmethod
+    def safe_float_rows(
+        rows: list[dict[str, Any]],
+        column: str,
+        *,
+        out_column: str | None = None,
+    ) -> list[dict[str, Any]]:
+        target = out_column if out_column is not None else column
+        return [{**row, target: TypeUtils.safe_float(row[column])} for row in rows]
