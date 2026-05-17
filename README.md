@@ -101,6 +101,8 @@ This library is intentionally limited in scope — it exists as a zero-dependenc
 - [**more-itertools**](https://more-itertools.readthedocs.io) — extensive iterable utilities including chunking and flattening
 - [**funcy**](https://funcy.readthedocs.io) — functional helpers including `pick`, `omit`, `chunks`, and silent type coercions
 
+Choose this library if you're already in the `tha-*` ecosystem and want zero-dependency helpers with predictable naming — no install overhead, no API surface to learn.
+
 ## License
 
 MIT
