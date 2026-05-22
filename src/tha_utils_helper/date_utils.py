@@ -5,25 +5,42 @@ from datetime import datetime
 from .errors import DateError
 
 _INPUT_FORMATS = [
+    # ISO 8601 datetime
     "%Y-%m-%dT%H:%M:%S.%fZ",
     "%Y-%m-%dT%H:%M:%S.%f",
     "%Y-%m-%dT%H:%M:%SZ",
     "%Y-%m-%dT%H:%M:%S",
+    # ISO / compact date
     "%Y-%m-%d",
     "%Y%m%d",
+    "%Y/%m/%d",
     "%Y-%m",
+    # US month-first
     "%m/%d/%Y",
     "%m/%d/%y",
     "%m-%d-%Y",
-    "%m/%d",
+    "%m-%d-%y",
+    # Day-first with abbreviated month (Oracle / Excel style)
+    "%d-%b-%Y",
+    "%d-%b-%y",
+    # Named month, day first
+    "%d %B %Y",
+    "%d %b %Y",
+    # Named month, day after
     "%B %d, %Y",
     "%b %d, %Y",
     "%B %d %Y",
     "%b %d %Y",
+    # No-year formats — always raise DateError so callers are not silently given 1900
+    "%m/%d",
     "%B %d",
     "%b %d",
     "%d-%b",
 ]
+
+_NO_YEAR_FMTS = frozenset(
+    fmt for fmt in _INPUT_FORMATS if "%Y" not in fmt and "%y" not in fmt
+)
 
 _ON_ERROR = {"error", "skip", "blank"}
 
@@ -31,9 +48,14 @@ _ON_ERROR = {"error", "skip", "blank"}
 def _parse(value: str) -> datetime:
     for fmt in _INPUT_FORMATS:
         try:
-            return datetime.strptime(value.strip(), fmt)
+            dt = datetime.strptime(value.strip(), fmt)
         except ValueError:
             continue
+        if fmt in _NO_YEAR_FMTS:
+            raise DateError(
+                f"Date {value!r} has no year — use a format that includes the year"
+            )
+        return dt
     raise DateError(f"Unrecognized date format: {value!r}")
 
 
