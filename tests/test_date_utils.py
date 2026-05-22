@@ -60,6 +60,9 @@ def test_output_month_day_year_short() -> None:
 def test_output_full_month_name() -> None:
     assert ThaDT.format_date("2024-04-15", "%B %d, %Y") == "April 15, 2024"
 
+def test_day_dash_month_abbv() -> None:
+    assert ThaDT.format_date("15-Jan", "%m/%d") == "01/15"
+
 
 # --- ThaDT.format_date_rows ---
 

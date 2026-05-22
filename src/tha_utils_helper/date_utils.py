@@ -22,6 +22,7 @@ _INPUT_FORMATS = [
     "%b %d %Y",
     "%B %d",
     "%b %d",
+    "%d-%b",
 ]
 
 _ON_ERROR = {"error", "skip", "blank"}
