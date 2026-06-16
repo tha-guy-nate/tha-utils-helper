@@ -5,6 +5,7 @@ from tha_utils_helper import ThaType
 
 # --- normalize_bool ---
 
+
 def test_normalize_bool_true_bool() -> None:
     assert ThaType.normalize_bool(True) is True
 
@@ -47,6 +48,7 @@ def test_normalize_bool_none_raises() -> None:
 
 # --- safe_int ---
 
+
 def test_safe_int_valid_string() -> None:
     assert ThaType.safe_int("42") == 42
 
@@ -72,6 +74,7 @@ def test_safe_int_empty_string() -> None:
 
 
 # --- safe_float ---
+
 
 def test_safe_float_valid_string() -> None:
     assert ThaType.safe_float("3.14") == pytest.approx(3.14)
@@ -99,11 +102,13 @@ def test_safe_float_empty_string() -> None:
 
 # --- normalize_bool_rows ---
 
+
 def test_normalize_bool_rows_basic() -> None:
     rows = [{"active": "yes"}, {"active": "no"}]
     result = ThaType.normalize_bool_rows(rows, "active")
     assert result[0]["active"] is True
     assert result[1]["active"] is False
+
 
 def test_normalize_bool_rows_out_column() -> None:
     rows = [{"active": "yes"}]
@@ -111,19 +116,23 @@ def test_normalize_bool_rows_out_column() -> None:
     assert result[0]["active_bool"] is True
     assert result[0]["active"] == "yes"
 
+
 def test_normalize_bool_rows_invalid_returns_none() -> None:
     rows = [{"active": "maybe"}]
     result = ThaType.normalize_bool_rows(rows, "active")
     assert result[0]["active"] is None
+
 
 def test_normalize_bool_rows_immutable() -> None:
     rows = [{"active": "yes"}]
     ThaType.normalize_bool_rows(rows, "active")
     assert rows[0]["active"] == "yes"
 
+
 def test_normalize_bool_rows_returns_new_list() -> None:
     rows = [{"active": "yes"}]
     assert ThaType.normalize_bool_rows(rows, "active") is not rows
+
 
 def test_normalize_bool_rows_empty() -> None:
     assert ThaType.normalize_bool_rows([], "active") == []
@@ -131,11 +140,13 @@ def test_normalize_bool_rows_empty() -> None:
 
 # --- safe_int_rows ---
 
+
 def test_safe_int_rows_basic() -> None:
     rows = [{"count": "42"}, {"count": "abc"}]
     result = ThaType.safe_int_rows(rows, "count")
     assert result[0]["count"] == 42
     assert result[1]["count"] is None
+
 
 def test_safe_int_rows_out_column() -> None:
     rows = [{"count": "42"}]
@@ -143,14 +154,17 @@ def test_safe_int_rows_out_column() -> None:
     assert result[0]["count_int"] == 42
     assert result[0]["count"] == "42"
 
+
 def test_safe_int_rows_returns_new_list() -> None:
     rows = [{"count": "1"}]
     assert ThaType.safe_int_rows(rows, "count") is not rows
+
 
 def test_safe_int_rows_immutable() -> None:
     rows = [{"count": "42"}]
     ThaType.safe_int_rows(rows, "count")
     assert rows[0]["count"] == "42"
+
 
 def test_safe_int_rows_empty() -> None:
     assert ThaType.safe_int_rows([], "count") == []
@@ -158,11 +172,13 @@ def test_safe_int_rows_empty() -> None:
 
 # --- safe_float_rows ---
 
+
 def test_safe_float_rows_basic() -> None:
     rows = [{"amount": "3.14"}, {"amount": "bad"}]
     result = ThaType.safe_float_rows(rows, "amount")
     assert result[0]["amount"] == pytest.approx(3.14)
     assert result[1]["amount"] is None
+
 
 def test_safe_float_rows_out_column() -> None:
     rows = [{"amount": "3.14"}]
@@ -170,9 +186,11 @@ def test_safe_float_rows_out_column() -> None:
     assert result[0]["amount_float"] == pytest.approx(3.14)
     assert result[0]["amount"] == "3.14"
 
+
 def test_safe_float_rows_returns_new_list() -> None:
     rows = [{"amount": "1.0"}]
     assert ThaType.safe_float_rows(rows, "amount") is not rows
+
 
 def test_safe_float_rows_empty() -> None:
     assert ThaType.safe_float_rows([], "amount") == []

@@ -13,7 +13,7 @@ DictUtils = ThaDict
 ListUtils = ThaList
 TypeUtils = ThaType
 
-__version__ = "0.2.3"
+__version__ = "0.2.4"
 __all__ = [
     "ThaDict",
     "ThaList",

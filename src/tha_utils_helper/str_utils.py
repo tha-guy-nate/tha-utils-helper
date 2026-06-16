@@ -132,7 +132,9 @@ class ThaStr:
                 for c in col_list:
                     val = row_copy[c]
                     if not isinstance(val, str):
-                        raise TypeError(f"Column {c!r} value must be a string, got {type(val).__name__}")
+                        raise TypeError(
+                            f"Column {c!r} value must be a string, got {type(val).__name__}"
+                        )
                     values.append(val)
                 combined = sep.join(values)
                 row_copy[out_column] = self.slugify(combined, sep=sep, prefix=prefix, suffix=suffix)

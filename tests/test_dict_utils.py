@@ -3,6 +3,7 @@ from tha_utils_helper import ThaDict
 
 # --- pick ---
 
+
 def test_pick_subset() -> None:
     assert ThaDict.pick({"a": 1, "b": 2, "c": 3}, ["a", "c"]) == {"a": 1, "c": 3}
 
@@ -26,6 +27,7 @@ def test_pick_empty_dict() -> None:
 
 # --- omit ---
 
+
 def test_omit_subset() -> None:
     assert ThaDict.omit({"a": 1, "b": 2, "c": 3}, ["b"]) == {"a": 1, "c": 3}
 
@@ -44,6 +46,7 @@ def test_omit_missing_keys_ignored() -> None:
 
 
 # --- safe_get ---
+
 
 def test_safe_get_single_key() -> None:
     assert ThaDict.safe_get({"a": 1}, "a") == 1
@@ -72,8 +75,11 @@ def test_safe_get_no_keys() -> None:
 
 # --- rename_keys ---
 
+
 def test_rename_keys_basic() -> None:
-    result = ThaDict.rename_keys({"studentUniqueId": 1, "name": "A"}, {"studentUniqueId": "student_id"})
+    result = ThaDict.rename_keys(
+        {"studentUniqueId": 1, "name": "A"}, {"studentUniqueId": "student_id"}
+    )
     assert result == {"student_id": 1, "name": "A"}
 
 
@@ -92,18 +98,22 @@ def test_rename_keys_empty_dict() -> None:
 
 # --- pick_rows ---
 
+
 def test_pick_rows_basic() -> None:
     rows = [{"a": 1, "b": 2, "c": 3}, {"a": 4, "b": 5, "c": 6}]
     assert ThaDict.pick_rows(rows, ["a", "c"]) == [{"a": 1, "c": 3}, {"a": 4, "c": 6}]
+
 
 def test_pick_rows_returns_new_list() -> None:
     rows = [{"a": 1}]
     assert ThaDict.pick_rows(rows, ["a"]) is not rows
 
+
 def test_pick_rows_immutable() -> None:
     rows = [{"a": 1, "b": 2}]
     ThaDict.pick_rows(rows, ["a"])
     assert "b" in rows[0]
+
 
 def test_pick_rows_empty() -> None:
     assert ThaDict.pick_rows([], ["a"]) == []
@@ -111,19 +121,23 @@ def test_pick_rows_empty() -> None:
 
 # --- omit_rows ---
 
+
 def test_omit_rows_basic() -> None:
     rows = [{"a": 1, "b": 2, "c": 3}]
     assert ThaDict.omit_rows(rows, ["b"]) == [{"a": 1, "c": 3}]
 
+
 def test_omit_rows_returns_new_list() -> None:
     rows = [{"a": 1}]
     assert ThaDict.omit_rows(rows, []) is not rows
+
 
 def test_omit_rows_empty() -> None:
     assert ThaDict.omit_rows([], ["a"]) == []
 
 
 # --- rename_keys_rows ---
+
 
 def test_rename_keys_rows_basic() -> None:
     rows = [{"studentId": "1", "name": "A"}, {"studentId": "2", "name": "B"}]
@@ -132,14 +146,17 @@ def test_rename_keys_rows_basic() -> None:
         {"id": "2", "name": "B"},
     ]
 
+
 def test_rename_keys_rows_returns_new_list() -> None:
     rows = [{"a": 1}]
     assert ThaDict.rename_keys_rows(rows, {}) is not rows
+
 
 def test_rename_keys_rows_immutable() -> None:
     rows = [{"studentId": "1"}]
     ThaDict.rename_keys_rows(rows, {"studentId": "id"})
     assert "studentId" in rows[0]
+
 
 def test_rename_keys_rows_empty() -> None:
     assert ThaDict.rename_keys_rows([], {"a": "b"}) == []

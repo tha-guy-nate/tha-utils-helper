@@ -5,6 +5,7 @@ from tha_utils_helper import ThaList
 
 # --- chunk ---
 
+
 def test_chunk_even_split() -> None:
     assert ThaList.chunk([1, 2, 3, 4], 2) == [[1, 2], [3, 4]]
 
@@ -44,6 +45,7 @@ def test_chunk_preserves_types() -> None:
 
 
 # --- flatten ---
+
 
 def test_flatten_basic() -> None:
     assert ThaList.flatten([[1, 2], [3, 4]]) == [1, 2, 3, 4]

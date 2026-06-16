@@ -38,9 +38,7 @@ _INPUT_FORMATS = [
     "%d-%b",
 ]
 
-_NO_YEAR_FMTS = frozenset(
-    fmt for fmt in _INPUT_FORMATS if "%Y" not in fmt and "%y" not in fmt
-)
+_NO_YEAR_FMTS = frozenset(fmt for fmt in _INPUT_FORMATS if "%Y" not in fmt and "%y" not in fmt)
 
 _ON_ERROR = {"error", "skip", "blank"}
 
@@ -52,9 +50,7 @@ def _parse(value: str) -> datetime:
         except ValueError:
             continue
         if fmt in _NO_YEAR_FMTS:
-            raise DateError(
-                f"Date {value!r} has no year — use a format that includes the year"
-            )
+            raise DateError(f"Date {value!r} has no year — use a format that includes the year")
         return dt
     raise DateError(f"Unrecognized date format: {value!r}")
 
