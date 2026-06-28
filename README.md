@@ -1,6 +1,9 @@
 # tha-utils-helper
 
 [![CI](https://github.com/tha-guy-nate/tha-utils-helper/actions/workflows/ci.yml/badge.svg)](https://github.com/tha-guy-nate/tha-utils-helper/actions/workflows/ci.yml)
+[![PyPI](https://img.shields.io/pypi/v/tha-utils-helper)](https://pypi.org/project/tha-utils-helper/)
+[![Python](https://img.shields.io/pypi/pyversions/tha-utils-helper)](https://pypi.org/project/tha-utils-helper/)
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit)
 
 A Tabular Helper utility library for the `tha-*` ecosystem. Includes general-purpose dict/list/type helpers, string normalization and slugification, numeric string parsing, and date format conversion — all with row-level error handling for CSV pipeline use.
 
