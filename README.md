@@ -1,6 +1,7 @@
 # tha-utils-helper
 
 [![CI](https://github.com/tha-guy-nate/tha-utils-helper/actions/workflows/ci.yml/badge.svg)](https://github.com/tha-guy-nate/tha-utils-helper/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/tha-guy-nate/tha-utils-helper/graph/badge.svg)](https://codecov.io/gh/tha-guy-nate/tha-utils-helper)
 [![PyPI](https://img.shields.io/pypi/v/tha-utils-helper)](https://pypi.org/project/tha-utils-helper/)
 [![Python](https://img.shields.io/pypi/pyversions/tha-utils-helper)](https://pypi.org/project/tha-utils-helper/)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit)
