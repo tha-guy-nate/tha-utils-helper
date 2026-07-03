@@ -20,7 +20,7 @@ classifiers = [
 dependencies = []
 
 [project.optional-dependencies]
-dev = ["pytest>=9.1.0", "ruff>=0.15.17", "mypy>=2.1.0"]
+dev = ["pytest>=9.1.0", "ruff>=0.15.17", "mypy>=2.1.0", "deptry>=0.25.1"]
 
 [project.urls]
 Homepage = "https://github.com/tha-guy-nate/tha-utils-helper"
@@ -39,3 +39,7 @@ line-length = 100
 
 [tool.mypy]
 strict = true
+
+[tool.deptry]
+known_first_party = ["tha_utils_helper"]
+optional_dependencies_dev_groups = ["dev"]
