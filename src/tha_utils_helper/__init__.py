@@ -1,5 +1,7 @@
 """tha-utils-helper: general-purpose utility classes for the tha-* ecosystem."""
 
+from importlib.metadata import version
+
 from .date_utils import ThaDT
 from .dict_utils import ThaDict
 from .errors import DateError, NumError, StrError, UtilsError
@@ -13,7 +15,7 @@ DictUtils = ThaDict
 ListUtils = ThaList
 TypeUtils = ThaType
 
-__version__ = "0.2.6"
+__version__ = version("tha-utils-helper")
 __all__ = [
     "ThaDict",
     "ThaList",
